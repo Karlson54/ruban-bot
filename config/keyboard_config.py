@@ -1,5 +1,5 @@
 from telebot import types
-
+from config.bot_config import BotConfig
 
 class Keyboards:
     def __init__(self, lang='ua'):
@@ -19,7 +19,9 @@ class Keyboards:
                 'cart': 'Кошик',
                 'my_orders': 'Мої замовлення',
                 'feedback': 'Залишити відгук',
-                'settings': 'Налаштування'
+                'settings': 'Налаштування',
+                'admin': 'Адміністратор',
+                'language': 'Мова'
             },
             'en': {
                 'catalog': 'Catalog',
@@ -35,7 +37,9 @@ class Keyboards:
                 'cart': 'Cart',
                 'my_orders': 'My Orders',
                 'feedback': 'Leave Feedback',
-                'settings': 'Settings'
+                'settings': 'Settings',
+                'admin': 'Administrator',
+                'language': 'Language'
             }
         }
 
@@ -46,7 +50,7 @@ class Keyboards:
     def get_text(self, key):
         return self.button_texts.get(self.lang, self.button_texts['ua']).get(key, key)
 
-    def main_keyboard(self):
+    def main_keyboard(self, user_id=None):
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         keyboard.add(
             types.KeyboardButton(f"/catalog - {self.get_text('catalog')}"),
@@ -60,6 +64,16 @@ class Keyboards:
             types.KeyboardButton(f"/help - {self.get_text('help')}"),
             types.KeyboardButton(f"/feedback - {self.get_text('feedback')}")
         )
+        keyboard.add(
+            types.KeyboardButton(f"/settings - {self.get_text('settings')}")
+        )
+        
+        # Add admin button if user is admin
+        if user_id in BotConfig.ADMIN_IDS:
+            keyboard.add(
+                types.KeyboardButton(f"/admin - {self.get_text('admin')}")
+            )
+            
         return keyboard
 
     def admin_keyboard(self):
@@ -115,4 +129,9 @@ class Keyboards:
             keyboard.add(
                 types.InlineKeyboardButton(lang_name, callback_data=f'set_lang_{lang_code}')
             )
+        
+        keyboard.add(
+             types.InlineKeyboardButton(self.get_text('back'), callback_data='back_to_main')
+        )
+        
         return keyboard

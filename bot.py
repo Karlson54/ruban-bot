@@ -6,6 +6,7 @@ from handler.user_handler import UserHandler
 from handler.catalog_handler import CatalogHandler
 from handler.order_handler import OrderHandler
 from handler.cart_handler import CartHandler
+from handler.settings_handler import SettingsHandler
 
 
 def main():
@@ -21,6 +22,7 @@ def main():
     catalog_handler = CatalogHandler(bot)
     order_handler = OrderHandler(bot)
     cart_handler = CartHandler(bot)
+    settings_handler= SettingsHandler(bot)
 
     # Register all handlers
     admin_handler.register_handlers()
@@ -28,6 +30,7 @@ def main():
     catalog_handler.register_handlers()
     order_handler.register_handlers()
     cart_handler.register_handlers()
+    settings_handler.register_handlers()
 
     # Start the bot
     print("Bot started...")

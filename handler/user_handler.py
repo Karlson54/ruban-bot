@@ -41,7 +41,7 @@ class UserHandler:
         self.bot.send_message(
             user_id,
             self.messages.get_message('start', lang),
-            reply_markup=self.keyboards.main_keyboard()
+            reply_markup=self.keyboards.main_keyboard(user_id)
         )
 
     def help_command(self, message):

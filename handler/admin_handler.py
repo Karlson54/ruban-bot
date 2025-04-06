@@ -69,6 +69,15 @@ class AdminHandler:
             self._handle_view_orders(call, lang)
         elif action == 'feedback':
             self._handle_view_feedback(call, lang)
+        elif action == 'back':
+            # Handle back button - return to admin menu
+            admin_menu_text = self.messages.get_message('admin_menu', lang)
+            self.bot.edit_message_text(
+                admin_menu_text,
+                user_id,
+                call.message.message_id,
+                reply_markup=self._get_admin_keyboard(lang)
+            )
         
         self.bot.answer_callback_query(call.id)
 
