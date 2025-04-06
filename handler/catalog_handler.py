@@ -41,7 +41,7 @@ class CatalogHandler:
             self.bot.send_message(
                 user_id,
                 self.messages.get_message('catalog_empty', lang),
-                reply_markup=self.keyboards.main_keyboard()
+                reply_markup=self.keyboards.main_keyboard(user_id)
             )
             return
 

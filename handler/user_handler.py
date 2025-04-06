@@ -50,7 +50,7 @@ class UserHandler:
         self.bot.send_message(
             user_id,
             self.messages.get_message('help', lang),
-            reply_markup=self.keyboards.main_keyboard()
+            reply_markup=self.keyboards.main_keyboard(user_id)
         )
 
     def info_command(self, message):
@@ -59,7 +59,7 @@ class UserHandler:
         self.bot.send_message(
             user_id,
             self.messages.get_message('info', lang),
-            reply_markup=self.keyboards.main_keyboard()
+            reply_markup=self.keyboards.main_keyboard(user_id)
         )
 
     def language_command(self, message):
